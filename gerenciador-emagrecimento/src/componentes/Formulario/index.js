@@ -1,11 +1,14 @@
+import './Formulario.css'
+import CampoTexto from '../CampoTexto'
 
 const Formulario = () => {
     return (
-        <form>
-            <CampoTexto/>
-            <CampoTexto/>
-            <CampoTexto/>   
-            <CampoTexto/>
+        <form className="formulario">
+            <CampoTexto label="Teste"/>
+            <CampoTexto label="Teste"/>
+            <CampoTexto label="Teste"/>   
+            <CampoTexto label="Teste"/>
+            <button type="submit">Gravar</button>
         </form>
     )
 }
