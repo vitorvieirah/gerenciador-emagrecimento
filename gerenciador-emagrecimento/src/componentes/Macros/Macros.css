@@ -1,0 +1,14 @@
+.macros {
+    font-size: 30px;
+}
+
+.macros li {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.macros ul {
+    display: flex;
+    flex-direction: column;
+}
