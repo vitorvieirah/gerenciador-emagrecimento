@@ -1,55 +1,65 @@
+import React, { useState, useEffect } from 'react';
 import Formulario from './componentes/Formulario';
 import Header from './componentes/Header';
-import './App.css'
-import Footer from './componentes/Footer';
 import Macros from './componentes/Macros';
-import { useState, useEffect } from 'react'
+import Footer from './componentes/Footer';
+import './App.css';
 
 function App() {
-
-
-  const calorias = 1.564;
+  const calorias = 1564;
   const proteina = 128;
   const carboidrato = 364;
   const gordura = 64;
-  let kalCons;
-  let proteinaCons;
-  let carboidratoCons;
-  let gorduraCons;
 
-  const [kalFalta, setKalFalta] = useState(0);
-  const [proteinaFalta, setProteinaFalta] = useState(0);
-  const [carboidratoFalta, setCarboidratoFalta] = useState(0);
-  const [gorduraFalta, setGorduraFalta] = useState(0);
+  const [kalCons, setKalCons] = useState(0);
+  const [proteinaCons, setProteinaCons] = useState(0);
+  const [carboidratoCons, setCarboidratoCons] = useState(0);
+  const [gorduraCons, setGorduraCons] = useState(0);
 
+  const [kalFalta, setKalFalta] = useState(calorias);
+  const [proteinaFalta, setProteinaFalta] = useState(proteina);
+  const [carboidratoFalta, setCarboidratoFalta] = useState(carboidrato);
+  const [gorduraFalta, setGorduraFalta] = useState(gordura);
 
   useEffect(() => {
-    kalCons = parseFloat(localStorage.getItem('kal-cons')) || 0;
-    proteinaCons = parseFloat(localStorage.getItem('proteina-cons')) || 0;
-    carboidratoCons = parseFloat(localStorage.getItem('carboidrato-cons')) || 0;
-    gorduraCons = parseFloat(localStorage.getItem('gordura-cons')) || 0;
+    const initialKalCons = parseFloat(localStorage.getItem('kal-cons')) || 0;
+    const initialProteinaCons = parseFloat(localStorage.getItem('proteina-cons')) || 0;
+    const initialCarboidratoCons = parseFloat(localStorage.getItem('carboidrato-cons')) || 0;
+    const initialGorduraCons = parseFloat(localStorage.getItem('gordura-cons')) || 0;
 
-    console.log('Proteina cons antes: ' + proteinaCons);
-    console.log('Proteina faltante: ' + proteina - proteinaCons);
+    setKalCons(initialKalCons);
+    setProteinaCons(initialProteinaCons);
+    setCarboidratoCons(initialCarboidratoCons);
+    setGorduraCons(initialGorduraCons);
+  }, []);
 
+  useEffect(() => {
     setKalFalta(calorias - kalCons);
     setProteinaFalta(proteina - proteinaCons);
     setCarboidratoFalta(carboidrato - carboidratoCons);
     setGorduraFalta(gordura - gorduraCons);
+  }, [kalCons, proteinaCons, carboidratoCons, gorduraCons]);
 
-    console.log('Calorias cons: ' + kalCons);
-    console.log('Calorias faltas: ' + kalFalta);
-    console.log('Proteina cons: ' + proteinaCons);
-  })
+  const atualizarConsumo = (kalorias, proteinas, carboidratos, gorduras) => {
+    const newKalCons = kalCons + kalorias;
+    const newProteinaCons = proteinaCons + proteinas;
+    const newCarboidratoCons = carboidratoCons + carboidratos;
+    const newGorduraCons = gorduraCons + gorduras;
 
+    setKalCons(newKalCons);
+    setProteinaCons(newProteinaCons);
+    setCarboidratoCons(newCarboidratoCons);
+    setGorduraCons(newGorduraCons);
+
+    localStorage.setItem('kal-cons', newKalCons);
+    localStorage.setItem('proteina-cons', newProteinaCons);
+    localStorage.setItem('carboidrato-cons', newCarboidratoCons);
+    localStorage.setItem('gordura-cons', newGorduraCons);
+  };
 
   return (
     <div className="app">
-      <Header
-        calorias={calorias}
-        caloriasFaltantes={kalFalta}
-        caloriasConsumidas={kalCons}
-      />
+      <Header calorias={calorias} caloriasFaltantes={kalFalta} caloriasConsumidas={kalCons} />
       <Macros
         proteina={proteina}
         proteinaFaltante={proteinaFalta}
@@ -61,7 +71,7 @@ function App() {
         gorduraFaltante={gorduraFalta}
         gorduraCons={gorduraCons}
       />
-      <Formulario />
+      <Formulario atualizarConsumo={atualizarConsumo} />
       <Footer />
     </div>
   );
