@@ -17,33 +17,40 @@ function App() {
   let carboidratoCons;
   let gorduraCons;
 
-  const [kalFalta, setKalFalta] = useState('');
-  const [proteinaFalta, setProteinaFalta] = useState('');
-  const [carboidratoFalta, setCarboidratoFalta] = useState('');
-  const [gorduraFalta, setGorduraFalta] = useState('');
-  
+  const [kalFalta, setKalFalta] = useState(0);
+  const [proteinaFalta, setProteinaFalta] = useState(0);
+  const [carboidratoFalta, setCarboidratoFalta] = useState(0);
+  const [gorduraFalta, setGorduraFalta] = useState(0);
+
 
   useEffect(() => {
-    kalCons = localStorage.getItem('kal-cons');
-    proteinaCons = localStorage.getItem('proteina-cons');
-    carboidratoCons = localStorage.getItem('carboidrato-cons');
-    gorduraCons = localStorage.getItem('gordura-cons');
+    kalCons = parseFloat(localStorage.getItem('kal-cons')) || 0;
+    proteinaCons = parseFloat(localStorage.getItem('proteina-cons')) || 0;
+    carboidratoCons = parseFloat(localStorage.getItem('carboidrato-cons')) || 0;
+    gorduraCons = parseFloat(localStorage.getItem('gordura-cons')) || 0;
+
+    console.log('Proteina cons antes: ' + proteinaCons);
+    console.log('Proteina faltante: ' + proteina - proteinaCons);
 
     setKalFalta(calorias - kalCons);
     setProteinaFalta(proteina - proteinaCons);
     setCarboidratoFalta(carboidrato - carboidratoCons);
     setGorduraFalta(gordura - gorduraCons);
+
+    console.log('Calorias cons: ' + kalCons);
+    console.log('Calorias faltas: ' + kalFalta);
+    console.log('Proteina cons: ' + proteinaCons);
   })
 
 
   return (
     <div className="app">
-      <Header 
+      <Header
         calorias={calorias}
         caloriasFaltantes={kalFalta}
         caloriasConsumidas={kalCons}
       />
-      <Macros 
+      <Macros
         proteina={proteina}
         proteinaFaltante={proteinaFalta}
         proteinaCons={proteinaCons}

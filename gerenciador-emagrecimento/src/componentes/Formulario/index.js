@@ -4,17 +4,17 @@ import { useState } from 'react'
 
 const Formulario = () => {
 
-    const [kalCons, setKalCons] = useState('');
-    const [proteinaCons, setProteinaCons] = useState('');
-    const [carboidratoCons, setCarboidratoCons] = useState('');
-    const [gorduraCons, setGorduraCons] = useState('');
+    const [kalCons, setKalCons] = useState(0);
+    const [proteinaCons, setProteinaCons] = useState(0);
+    const [carboidratoCons, setCarboidratoCons] = useState(0);
+    const [gorduraCons, setGorduraCons] = useState(0);
 
 
     const aoSalvar = () => {
-        const kalConsStorage = localStorage.getItem('kal-cons');
-        const proteinaConsStorage = localStorage.getItem('proteina-cons');
-        const carboidratoConsStorage = localStorage.getItem('carboidrato-cons');
-        const gorduraConsStorage = localStorage.getItem('gordura-cons');
+        const kalConsStorage = parseFloat(localStorage.getItem('kal-cons')) || 0;
+        const proteinaConsStorage = parseFloat(localStorage.getItem('proteina-cons')) || 0;
+        const carboidratoConsStorage = parseFloat(localStorage.getItem('carboidrato-cons')) || 0;
+        const gorduraConsStorage = parseFloat(localStorage.getItem('gordura-cons')) || 0;
 
         if(kalConsStorage) {
             setKalCons(kalConsStorage + kalCons);
