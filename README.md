@@ -1,1 +1,1 @@
-# gerenciador-emagrecimento
+# Gerenciador de emagrecimento
