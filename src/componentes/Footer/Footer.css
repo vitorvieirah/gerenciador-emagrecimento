@@ -13,3 +13,23 @@
     height: 40%;
     font-size: 25px; 
 }
+
+
+@media screen and (max-width: 1206px) {
+    .footer button {
+        font-size: 20px; 
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .footer button {
+        font-size: 15px; 
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footer button {
+        font-size: 13px; 
+    }
+}
+
